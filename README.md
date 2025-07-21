@@ -131,10 +131,11 @@
 
 ### Thinking Process
 
-1. // step 1
-2. // step 2
-3. // ...
-4. // step n
+1. ทำสิ่งที่คุ้นเคยจากการบ้านก่อนด้วยการจะทำ movePlayer function inside Field class
+2. พอจะทำ movePlayer function จึงรู้ว่า ต้องรับค่าจาก prompt จึงสร้างตัวแปร const move = prompt เพื่อส่งค่าให้ใน newGame.movePlayer(move)
+3. เนื่องจาก game เป็นแบบลูป (เดิน reprint เดิน reprint) ไม่สิ้นสุดจนกว่าจะเจอบางเงื่อนไข จึงสร้าง this.gameRun = true มาเป็นเงื่อนไขที่จะใส่ใน while(newGame.gameRun) แล้วนำ code ทั้งหมดมาอยู่ข้างใน
+4. วกกลับไปทำ movePlayer ต่อ ใช้ switch case ในการเช็ค move แต่ละ case แล้วเปลี่ยนตำแหน่งผ่าน this.positionRow และ this.positionCol
+5. 
 
 _Notes:_<br>
 _- You can attach flowcharts, diagrams, and images as needed._<br>
