@@ -21,24 +21,45 @@ class Field {
 	}
 
 	Randomize (width=this.field.length, height=this.field[0].length) {
+
 		for (let i=0; i<height; i++) {
 			for (let j=0; j<width; j++) {
-				if (this.field[i][j] === hat) {
-					this.field[i][j] = "░";
-				}
+				this.field[i][j] = fieldCharacter; // clear all field
 			}
-		}												// Replace existing hat with ░ first
+		}
+
+		const totalFields = width * height;
+		const holePercentage = 0.2;
+		const holeCount = Math.floor(totalFields * holePercentage);
+
+		let placedHoles = 0;
+		while (placedHoles < holeCount) {
+		const holeRow = Math.floor(Math.random() * height);
+		const holeCol = Math.floor(Math.random() * width);
+		if (this.field[holeRow][holeCol] === fieldCharacter) {
+			this.field[holeRow][holeCol] = hole;
+			placedHoles++;							// random hole
+			}
+		}
+
 		let hatRow = 0;
 		let hatCol = 0;
 		do {
 			hatRow = Math.floor(Math.random() * height);
 			hatCol = Math.floor(Math.random() * width);
-		} while (hatRow === 0 && hatCol === 0);
-		this.field[hatRow][hatCol] = hat;
+		} while (this.field[hatRow][hatCol] !== fieldCharacter);
+		this.field[hatRow][hatCol] = hat;	// random hat
+
+		let playerRow, playerCol;
+		do {
+			playerRow = Math.floor(Math.random() * height);
+			playerCol = Math.floor(Math.random() * width);
+		} while (this.field[playerRow][playerCol] !== fieldCharacter || (playerRow === hatRow && playerCol === hatCol)
+		);
+		this.positionRow = playerRow;
+		this.positionCol = playerCol;
+		this.field[playerRow][playerCol] = pathCharacter; // random player
 	}
-
-
-
 	// Print field //
 	print() {
 		clear();
@@ -94,7 +115,7 @@ const newGame = new Field([
 	["░", "O", "░"],
 	["░", "^", "░"],
 ]);
-newGame.Randomize();
+newGame.Randomize(); // use this code to randomize hat, player, hole
 
 while (newGame.gameRun) {
 	newGame.print();

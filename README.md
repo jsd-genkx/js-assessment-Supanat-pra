@@ -144,7 +144,12 @@
 10. ต่อไปสร้าง outside field check ด้วยเงื่อนไขที่เช็ค this.positionRow < 0 || this.positionRow >= this.field.length กับ this.positionCol < 0 || this.positionCol >= this.field[0].length
 11. พบเจอปัญหาว่า this.positionRow และ this.positionCol ได้ถูกอัพเดทก่อนที่จะเข้า if ทั้งที่ตามหลักแล้วควรจะเช็ค if ก่อน แล้วค่อยนำตัวแปรไปขยับ ทำให้ *(ดอกจันทร์) ค้างอยู่นอกกรอบในลูปถัดไป จึงต้องทำการสร้าง let newRow = this.positionRow; let newCol = this.positionCol; เพื่อมารับค่า ++,-- ไปเช็ค ก่อนที่จะอัพเดทในตัวแปรของจริง (this.positionRow และ this.positionCol)
 12. พบเจอปัญหา clear(this.field); ลบข้อความที่จะต้องการให้แสดงเมื่อ user input ผิด เช่น console.log(Invalid Input, move outside of field) ยังแก้ไม่ได้
-13. ทำฟีเจอร์ random เริ่มจากการสร้าง function Randomize แล้วรับเอาค่าความกว้างแล้วความสูงของ field เราเข้าไป ด้วย width=this.field.length, height=this.field[0].length จากนั้นทำการสร้าง random hat เริ่มจากการเช็คทุก array ใน this.field โดยการใช้ for loop แล้วแทนที่ hat ในตำแหน่งที่เจอด้วย ░ ทำการสร้างตำแหน่งแบบสุ่มด้วย hatRow = Math.floor(Math.random() * height)ว และ hatCol = Math.floor(Math.random() * width); และเช็คว่าห้ามเป็นตำแหน่ง [0][0] ด้วย while loop
+13. ทำฟีเจอร์ random เริ่มจากการสร้าง function Randomize แล้วรับเอาค่าความกว้างแล้วความสูงของ field เราเข้าไป ด้วย width=this.field.length, height=this.field[0].length จากนั้นทำการสร้าง random hat เริ่มจากการเช็คทุก array ใน this.field โดยการใช้ for loop แล้วแทนที่ hat ในตำแหน่งที่เจอด้วย ░ ทำการสร้างตำแหน่งแบบสุ่มด้วย hatRow = Math.floor(Math.random() * height) และ hatCol = Math.floor(Math.random() * width); และเช็คว่าห้ามเป็นตำแหน่ง [0][0] ด้วย while loop
+14. หลังจากทำ randomize hat ได้แล้ว แล้วกำลังจะทำ randomize hole และ player จึงรู้ว่าควรจะล้างกระดานให้หมดไปเลย แล้วค่อย randomize จะดีกว่า จึงใช้การแทนที่ทุก array ใน this.field ด้วยการใช้ for loop ให้เป็น ░ ให้หมดก่อน จากนั้น ในการที่จะใส่หลุมเป็นจำนวนเท่าไหร่ ต้องหาจำนวนพื้นที่ทั้งหมดด้วยการสร้างตัวแปรขึ้นมา(totalFields = width * height) และคิดว่าจะให้มีกี่เปอเซ็นด้วยการสร้างตัวแปรขึ้นมาอีกตัว(holePercentage = 0.2) และนำมาคูณกันเป็นจำนวนหลุ่มที่เราต้องการ ในข้อนี้คือ 20%(holeCount = Math.floor(totalFields * holePercentage);)
+15. สร้างตัวแปรที่จะทำการวนลูปใส่หลุมจำนวนทั้งหมดทีละตัวโดยมีเงื่อนไขว่าต้องเป็นพื้นที่ ░ เท่านั้น ถึงจะใส่หลุม
+16. สร้าง random hat ด้วยหลักการเดียวกันโดยมีเงื่อนไขว่า เมื่อเจอ ░ ให้ใช้จุดนั้นเป็นตำแหน่ง hat
+17. สร้าง random player ด้วยหลักการเดียวกันโดยมีเงื่อนไขว่า เมื่อเจอ ░ ให้ใช้จุดนั้นเป็นตำแหน่ง player และต้องไม่ใช่ hat หรือ hole
+18. นำ newGame.Randomize(); มาใส่ก่อนเริ่มเกมเพื่อทำการสุ่ม
 
 _Notes:_<br>
 _- You can attach flowcharts, diagrams, and images as needed._<br>
